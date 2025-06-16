@@ -1,0 +1,62 @@
+﻿<Page
+    x:Class="ExpenseTracker.Views.StatsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ScottPlot="clr-namespace:ScottPlot.WPF;assembly=ScottPlot.WPF"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:ExpenseTracker.ViewModels"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    Title="StatsPage"
+    Width="Auto"
+    Height="Auto"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
+    mc:Ignorable="d">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.ColumnSpan="2" HorizontalAlignment="Center" Orientation="Horizontal">
+            <ComboBox materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                      BorderThickness="0"
+                      Width="100"
+                      Margin="0,0,0,10"
+                      Padding="5"
+                      DisplayMemberPath="DisplayName"
+                      materialDesign:HintAssist.Hint="Категорія"
+                      ItemsSource="{Binding AvailableFilters}"
+                      SelectedItem="{Binding SelectedFilter}" />
+            <ComboBox materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                      BorderThickness="0"
+                      Width="100"
+                      Margin="0,0,0,10"
+                      Padding="5"
+                      materialDesign:HintAssist.Hint="Валюта"
+                      ItemsSource="{Binding AvailableCurrencies}"
+                      SelectedItem="{Binding SelectedCurrency}" />
+        </StackPanel>
+
+        <Border Grid.Row="1" Grid.Column="0" BorderBrush="Gray" BorderThickness="1" Margin="5" Padding="5">
+            <ContentControl Content="{Binding ExpensePie, Mode=OneTime}" />
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="5" Padding="5">
+            <ContentControl Content="{Binding ExpenseBar, Mode=OneTime}" />
+        </Border>
+        <Border Grid.Row="2" Grid.Column="0" BorderBrush="Gray" BorderThickness="1" Margin="5" Padding="5">
+            <ContentControl Content="{Binding IncomePie, Mode=OneTime}" />
+        </Border>
+        <Border Grid.Row="2" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="5" Padding="5">
+            <ContentControl Content="{Binding IncomeBar, Mode=OneTime}" />
+        </Border>
+
+    </Grid>
+</Page>
