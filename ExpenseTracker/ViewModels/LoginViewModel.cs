@@ -14,8 +14,8 @@ namespace ExpenseTracker.ViewModels
     {
 
         private readonly AppDbContext _context;
-        private string _username = string.Empty;
-        private string _password = string.Empty;
+        private string _username = "romaro";
+        private string _password = "12345";
 
         public string Username
         {

@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:data="clr-namespace:ExpenseTracker.Data"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     Title="Трекер витрат"
     Width="850"
     Height="500"
@@ -138,6 +139,39 @@
                         Content="Змінити акаунт"
                         Style="{StaticResource ShadowButton}" Command="{Binding ChangeAccountCommand}"
                         />
+                <StackPanel Margin="0,10">
+                    <TextBlock FontSize="16" Foreground="White" FontWeight="Bold" Text="Макс. сума витрат:" />
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <TextBox FontSize="16" Foreground="White"
+                            Width="50"
+                            Margin="0"
+                            Padding="6"
+                            materialDesign:HintAssist.Hint="UAH"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Text="{Binding MaxExpenseLimitUAH, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox FontSize="16" Foreground="White"
+                                 Width="50"
+                                 Margin="0"
+                                 Padding="6"
+                                 materialDesign:HintAssist.Hint="USD"
+                                 Background="Transparent"
+                                 BorderThickness="0"
+                                 Text="{Binding MaxExpenseLimitUSD, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox FontSize="16" Foreground="White"
+                                 Width="50"
+                                 Margin="0"
+                                 Padding="6"
+                                 materialDesign:HintAssist.Hint="EUR"
+                                 Background="Transparent"
+                                 BorderThickness="0"
+                                 Text="{Binding MaxExpenseLimitEUR, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                    <Button FontSize="17"
+                        Content="Зберегти ліміт" CommandParameter="dummy"
+                        Style="{StaticResource ShadowButton}"
+                        Command="{Binding SaveLimitCommand}" />
+                </StackPanel>
             </StackPanel>
 
         </Border>

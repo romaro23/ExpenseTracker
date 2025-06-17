@@ -14,6 +14,7 @@ namespace ExpenseTracker.Data
         public double BalanceUAH => CalculateBalance("UAH");
         public double BalanceUSD => CalculateBalance("USD");
         public double BalanceEUR => CalculateBalance("EUR");
+        
 
         public BalanceService()
         {

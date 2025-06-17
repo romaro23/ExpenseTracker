@@ -1,8 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using DocumentFormat.OpenXml.VariantTypes;
 using ExpenseTracker.Data;
 using ExpenseTracker.Models;
 using ExpenseTracker.Views;
@@ -120,10 +122,12 @@ namespace ExpenseTracker.ViewModels
                 OnPropertyChanged();
             }
         }
+        
         public RelayCommand<object> AddExpenseCommand { get; }
         public RelayCommand<object> ClearCommand { get; }
         public RelayCommand<ExpenseEntry> DeleteExpenseCommand { get; }
         public RelayCommand<ExpenseEntry> FillExpenseCommand { get; }
+        
         public ExpenseViewModel(BalanceService balanceService)
         {
             _context = new AppDbContext();
@@ -139,7 +143,10 @@ namespace ExpenseTracker.ViewModels
             });
             DeleteExpenseCommand = new RelayCommand<ExpenseEntry>(DeleteExpense);
             FillExpenseCommand = new RelayCommand<ExpenseEntry>(FillExpense);
+            
         }
+
+        
         private void OpenAddCategoryDialog()
         {
             var dialog = new AddCategoryWindow();
@@ -233,7 +240,6 @@ namespace ExpenseTracker.ViewModels
                 GroupedExpenses.Add(group);
         }
 
-
         private bool CanAddExpense(object? _)
         {
             return double.TryParse(Amount, out double d) && !string.IsNullOrWhiteSpace(Category) && !string.IsNullOrWhiteSpace(Currency) && Date != null;
@@ -247,6 +253,41 @@ namespace ExpenseTracker.ViewModels
                 EditExpense(_);
                 ClearFields();
                 return;
+            }
+            var user = _context.Users.Find(CurrentUser.Id);
+            if (user == null)
+                return;
+            var maxUAH = user.MaxExpenseLimitUAH;
+            var maxUSD = user.MaxExpenseLimitUSD;
+            var maxEUR = user.MaxExpenseLimitEUR;
+            var expenseUAH = _context.Expenses.Where(x => x.CurrencyType == "UAH" && x.UserId == CurrentUser.Id).Sum(x => x.Amount);
+            var expenseUSD = _context.Expenses.Where(x => x.CurrencyType == "USD" && x.UserId == CurrentUser.Id).Sum(x => x.Amount);
+            var expenseEUR = _context.Expenses.Where(x => x.CurrencyType == "EUR" && x.UserId == CurrentUser.Id).Sum(x => x.Amount);
+            switch (Currency) 
+            {
+                case "UAH":
+                    if (expenseUAH + amount > maxUAH && maxUAH != 0)
+                    {
+                        MessageBox.Show($"Сума витрати перевищує встановлений ліміт: {maxUAH} ₴", "Ліміт витрат", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+                    break;
+                case "USD":
+                    if (expenseUSD + amount > maxUSD && maxUSD != 0)
+                    {
+                        MessageBox.Show($"Сума витрати перевищує встановлений ліміт: {maxUSD} $", "Ліміт витрат", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+                    break;
+                case "EUR":
+                    if (expenseEUR + amount > maxEUR && maxEUR != 0)
+                    {
+                        MessageBox.Show($"Сума витрати перевищує встановлений ліміт: {maxEUR} €", "Ліміт витрат", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+                    break;
+                default:
+                    return;
             }
             var expense = new ExpenseEntry
             {

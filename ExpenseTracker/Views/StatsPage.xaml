@@ -13,7 +13,58 @@
     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch"
     mc:Ignorable="d">
-
+<Page.Resources>
+    <Style x:Key="ShadowButton" TargetType="Button">
+    <Setter Property="Background" Value="#3C4F6D" />
+    <Setter Property="Foreground" Value="White" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Padding" Value="8,4" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="Cursor" Value="Hand" />
+    <Setter Property="Effect">
+        <Setter.Value>
+            <DropShadowEffect
+                BlurRadius="5"
+                Opacity="0.3"
+                ShadowDepth="2"
+                Color="#444" />
+        </Setter.Value>
+    </Setter>
+    <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
+    <Setter Property="RenderTransform">
+        <Setter.Value>
+            <ScaleTransform ScaleX="1" ScaleY="1" />
+        </Setter.Value>
+    </Setter>
+    <Style.Triggers>
+        <Trigger Property="IsMouseOver" Value="True">
+            <Setter Property="Background" Value="#0053B3" />
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect
+                        BlurRadius="10"
+                        Opacity="0.6"
+                        ShadowDepth="3"
+                        Color="#0053B3" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1.05" ScaleY="1.05" />
+                </Setter.Value>
+            </Setter>
+        </Trigger>
+        <Trigger Property="IsPressed" Value="True">
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="0.95" ScaleY="0.95" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Effect" Value="{x:Null}" />
+        </Trigger>
+    </Style.Triggers>
+</Style>
+</Page.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -25,23 +76,46 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.ColumnSpan="2" HorizontalAlignment="Center" Orientation="Horizontal">
-            <ComboBox materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                      BorderThickness="0"
-                      Width="100"
-                      Margin="0,0,0,10"
-                      Padding="5"
-                      DisplayMemberPath="DisplayName"
-                      materialDesign:HintAssist.Hint="Категорія"
-                      ItemsSource="{Binding AvailableFilters}"
-                      SelectedItem="{Binding SelectedFilter}" />
-            <ComboBox materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                      BorderThickness="0"
-                      Width="100"
-                      Margin="0,0,0,10"
-                      Padding="5"
-                      materialDesign:HintAssist.Hint="Валюта"
-                      ItemsSource="{Binding AvailableCurrencies}"
-                      SelectedItem="{Binding SelectedCurrency}" />
+            <Border
+                Margin="5"
+                Padding="0"
+                Background="White"
+                BorderBrush="#CCC"
+                BorderThickness="1"
+                CornerRadius="5">
+                <ComboBox
+                    Width="135"
+                    Margin="0,0,10,0"
+                    Padding="5"
+                    DisplayMemberPath="DisplayName"
+                    materialDesign:HintAssist.Hint="Часовий проміжок"
+                    materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                    BorderThickness="0"
+                    ItemsSource="{Binding AvailableFilters}"
+                    SelectedItem="{Binding SelectedFilter}" />
+            </Border>
+            <Border
+                Margin="5"
+                Padding="0"
+                Background="White"
+                BorderBrush="#CCC"
+                BorderThickness="1"
+                CornerRadius="5">
+                <ComboBox
+                    Width="100"
+                    Margin="0,0,10,0"
+                    Padding="5"
+                    materialDesign:HintAssist.Hint="Валюта"
+                    materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                    BorderThickness="0"
+                    ItemsSource="{Binding AvailableCurrencies}"
+                    SelectedItem="{Binding SelectedCurrency}" />
+            </Border>
+            <!--<Button
+                Margin="0,0,10,0"
+                
+                Content="Експортувати"
+                Style="{StaticResource ShadowButton}" />-->
         </StackPanel>
 
         <Border Grid.Row="1" Grid.Column="0" BorderBrush="Gray" BorderThickness="1" Margin="5" Padding="5">

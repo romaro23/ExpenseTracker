@@ -11,6 +11,7 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
+using DocumentFormat.OpenXml.VariantTypes;
 using ExpenseTracker.Data;
 using ExpenseTracker.Models;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -191,7 +192,8 @@ namespace ExpenseTracker.ViewModels
 
             Categories = labels;
             Values = totals;
-            UpdateBar(Categories, Values, ExpenseBar, "Сума витрат");
+            var totalExpenses = _context.Expenses.Where(x => x.CurrencyType == SelectedCurrency && x.UserId == CurrentUser.Id).Sum(x => x.Amount);
+            UpdateBar(Categories, Values, ExpenseBar, $"Сума витрат (загальна - {totalExpenses})");
         }
 
         private void UpdateExpensePieData()
@@ -214,10 +216,10 @@ namespace ExpenseTracker.ViewModels
                 })
                 .OrderByDescending(x => x.Total)
                 .ToList();
-
+            
             Categories = expenses.Select(x => x.Category).ToArray();
             Values = expenses.Select(x => x.Total).ToArray();
-            UpdatePie(Categories, Values, ExpensePie, "Категорії витрат");
+            UpdatePie(Categories, Values, ExpensePie, $"Категорії витрат");
         }
         Color GetColorByIndex(int index)
         {
@@ -344,8 +346,8 @@ namespace ExpenseTracker.ViewModels
                 default:
                     return;
             }
-
-            UpdateBar(labels, totals, IncomeBar, "Сума надходжень");
+            var totalIncomes = _context.Incomes.Where(x => x.CurrencyType == SelectedCurrency && x.UserId == CurrentUser.Id).Sum(x => x.Amount);
+            UpdateBar(labels, totals, IncomeBar, $"Сума надходжень (загальна - {totalIncomes})");
         }
 
     }

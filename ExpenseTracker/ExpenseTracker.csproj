@@ -19,6 +19,8 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
     <PackageReference Include="ScottPlot.WPF" Version="5.0.55" />
+    <PackageReference Include="ClosedXML" Version="0.97.0" />
+
   </ItemGroup>
 
 </Project>
