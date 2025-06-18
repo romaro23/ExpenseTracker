@@ -1,24 +1,32 @@
-﻿<Window x:Class="ExpenseTracker.Views.ValidationWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ExpenseTracker.Views"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d"
-        Title="Підтвердіть пароль" Width="350" Height="240">
+﻿<Window
+    x:Class="ExpenseTracker.Views.ValidationWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Підтвердіть пароль"
+    Width="350"
+    Height="240"
+    mc:Ignorable="d">
     <Grid>
         <StackPanel Margin="20">
-            <TextBlock Text="Пароль:" Margin="0,0,0,5"/>
-            <PasswordBox Margin="0,0,0,15"
-                         materialDesign:PasswordBoxAssist.Password="{Binding Password, Mode=TwoWay}"
-                         Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
-            />
+            <TextBlock Margin="0,0,0,5" Text="Пароль:" />
+            <PasswordBox
+                Margin="0,0,0,15"
+                materialDesign:PasswordBoxAssist.Password="{Binding Password, Mode=TwoWay}"
+                Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
 
-            <Button CommandParameter="dummy" Content="Підтвердити" Command="{Binding ValidateCommand}" 
-                    Margin="0,0,0,10"/>
-            <Button CommandParameter="dummy" Content="Скасувати" Command="{Binding CancelCommand}"
-                    Margin="0,0,0,10"/>
+            <Button
+                Margin="0,0,0,10"
+                Command="{Binding ValidateCommand}"
+                CommandParameter="dummy"
+                Content="Підтвердити" />
+            <Button
+                Margin="0,0,0,10"
+                Command="{Binding CancelCommand}"
+                CommandParameter="dummy"
+                Content="Скасувати" />
         </StackPanel>
     </Grid>
 </Window>

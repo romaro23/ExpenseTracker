@@ -3,9 +3,9 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:data="clr-namespace:ExpenseTracker.Data"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Трекер витрат"
     Width="850"
     Height="500"
@@ -96,7 +96,12 @@
             <ColumnDefinition Width="220" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Frame Grid.Column="1" x:Name="MainFrame" NavigationUIVisibility="Hidden" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        <Frame
+            x:Name="MainFrame"
+            Grid.Column="1"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            NavigationUIVisibility="Hidden" />
         <Border
             Grid.Column="0"
             Padding="15"
@@ -112,69 +117,98 @@
                     Text="Меню" />
 
                 <StackPanel Margin="0,0,0,20">
-                    <TextBlock FontSize="16" Foreground="White"
-                               Text="Баланс:" FontWeight="Bold" Margin="0,0,0,5"/>
-                    <TextBlock FontSize="15" Foreground="LightGreen"
-                               Text="{Binding BalanceUAH, StringFormat='₴ {0:F2}'}" />
-                    <TextBlock FontSize="15" Foreground="LightGreen"
-                               Text="{Binding BalanceUSD, StringFormat='$ {0:F2}'}" />
-                    <TextBlock FontSize="15" Foreground="LightGreen"
-                               Text="{Binding BalanceEUR, StringFormat='€ {0:F2}'}" />
+                    <TextBlock
+                        Margin="0,0,0,5"
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Foreground="White"
+                        Text="Баланс:" />
+                    <TextBlock
+                        FontSize="15"
+                        Foreground="LightGreen"
+                        Text="{Binding BalanceUAH, StringFormat='₴ {0:F2}'}" />
+                    <TextBlock
+                        FontSize="15"
+                        Foreground="LightGreen"
+                        Text="{Binding BalanceUSD, StringFormat='$ {0:F2}'}" />
+                    <TextBlock
+                        FontSize="15"
+                        Foreground="LightGreen"
+                        Text="{Binding BalanceEUR, StringFormat='€ {0:F2}'}" />
                 </StackPanel>
 
-                <Button FontSize="17"
-                        Margin="0,5"
-                        Content="Витрати"
-                        Style="{StaticResource ShadowButton}" Click="OnExpenseClick" />
-                <Button FontSize="17"
-                        Margin="0,5"
-                        Content="Надходження"
-                        Style="{StaticResource ShadowButton}" Click="OnIncomeClick" />
-                <Button FontSize="17"
-                        Margin="0,5"
-                        Content="Статистика"
-                        Style="{StaticResource ShadowButton}" Click="OnStatsClick"/>
-                <Button FontSize="17"
-                        Margin="0,20,0,5"
-                        Content="Змінити акаунт"
-                        Style="{StaticResource ShadowButton}" Command="{Binding ChangeAccountCommand}"
-                        />
+                <Button
+                    Margin="0,5"
+                    Click="OnExpenseClick"
+                    Content="Витрати"
+                    FontSize="17"
+                    Style="{StaticResource ShadowButton}" />
+                <Button
+                    Margin="0,5"
+                    Click="OnIncomeClick"
+                    Content="Надходження"
+                    FontSize="17"
+                    Style="{StaticResource ShadowButton}" />
+                <Button
+                    Margin="0,5"
+                    Click="OnStatsClick"
+                    Content="Статистика"
+                    FontSize="17"
+                    Style="{StaticResource ShadowButton}" />
+                <Button
+                    Margin="0,20,0,5"
+                    Command="{Binding ChangeAccountCommand}"
+                    Content="Змінити акаунт"
+                    FontSize="17"
+                    Style="{StaticResource ShadowButton}" />
                 <StackPanel Margin="0,10">
-                    <TextBlock FontSize="16" Foreground="White" FontWeight="Bold" Text="Макс. сума витрат:" />
+                    <TextBlock
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Foreground="White"
+                        Text="Макс. сума витрат:" />
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <TextBox FontSize="16" Foreground="White"
+                        <TextBox
                             Width="50"
                             Margin="0"
                             Padding="6"
                             materialDesign:HintAssist.Hint="UAH"
                             Background="Transparent"
                             BorderThickness="0"
+                            FontSize="16"
+                            Foreground="White"
                             Text="{Binding MaxExpenseLimitUAH, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBox FontSize="16" Foreground="White"
-                                 Width="50"
-                                 Margin="0"
-                                 Padding="6"
-                                 materialDesign:HintAssist.Hint="USD"
-                                 Background="Transparent"
-                                 BorderThickness="0"
-                                 Text="{Binding MaxExpenseLimitUSD, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBox FontSize="16" Foreground="White"
-                                 Width="50"
-                                 Margin="0"
-                                 Padding="6"
-                                 materialDesign:HintAssist.Hint="EUR"
-                                 Background="Transparent"
-                                 BorderThickness="0"
-                                 Text="{Binding MaxExpenseLimitEUR, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox
+                            Width="50"
+                            Margin="0"
+                            Padding="6"
+                            materialDesign:HintAssist.Hint="USD"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            FontSize="16"
+                            Foreground="White"
+                            Text="{Binding MaxExpenseLimitUSD, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox
+                            Width="50"
+                            Margin="0"
+                            Padding="6"
+                            materialDesign:HintAssist.Hint="EUR"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            FontSize="16"
+                            Foreground="White"
+                            Text="{Binding MaxExpenseLimitEUR, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
-                    <Button FontSize="17"
-                        Content="Зберегти ліміт" CommandParameter="dummy"
-                        Style="{StaticResource ShadowButton}"
-                        Command="{Binding SaveLimitCommand}" />
+                    <Button
+                        Command="{Binding SaveLimitCommand}"
+                        CommandParameter="dummy"
+                        Content="Зберегти ліміт"
+                        FontSize="17"
+                        Style="{StaticResource ShadowButton}" />
                 </StackPanel>
             </StackPanel>
 
         </Border>
-        
+
     </Grid>
 </Window>

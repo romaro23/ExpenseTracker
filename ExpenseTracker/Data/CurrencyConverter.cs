@@ -15,7 +15,7 @@ namespace ExpenseTracker.Data
         {
             if (value is ExpenseEntry entry)
             {
-                string symbol = entry.CurrencyType switch
+                var symbol = entry.CurrencyType switch
                 {
                     "USD" => "$",
                     "EUR" => "€",
@@ -25,9 +25,10 @@ namespace ExpenseTracker.Data
 
                 return $"{entry.Amount:0.00} {symbol}";
             }
-            else if (value is IncomeEntry income)
+
+            if (value is IncomeEntry income)
             {
-                string symbol = income.CurrencyType switch
+                var symbol = income.CurrencyType switch
                 {
                     "USD" => "$",
                     "EUR" => "€",
@@ -37,10 +38,13 @@ namespace ExpenseTracker.Data
 
                 return $"{income.Amount:0.00} {symbol}";
             }
+
             return "";
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
             throw new NotImplementedException();
+        }
     }
 }

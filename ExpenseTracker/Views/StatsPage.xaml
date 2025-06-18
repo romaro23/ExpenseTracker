@@ -2,80 +2,81 @@
     x:Class="ExpenseTracker.Views.StatsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:ScottPlot="clr-namespace:ScottPlot.WPF;assembly=ScottPlot.WPF"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:vm="clr-namespace:ExpenseTracker.ViewModels"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="StatsPage"
     Width="Auto"
     Height="Auto"
     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch"
     mc:Ignorable="d">
-<Page.Resources>
-    <Style x:Key="ShadowButton" TargetType="Button">
-    <Setter Property="Background" Value="#3C4F6D" />
-    <Setter Property="Foreground" Value="White" />
-    <Setter Property="BorderThickness" Value="0" />
-    <Setter Property="Padding" Value="8,4" />
-    <Setter Property="FontWeight" Value="SemiBold" />
-    <Setter Property="Cursor" Value="Hand" />
-    <Setter Property="Effect">
-        <Setter.Value>
-            <DropShadowEffect
-                BlurRadius="5"
-                Opacity="0.3"
-                ShadowDepth="2"
-                Color="#444" />
-        </Setter.Value>
-    </Setter>
-    <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
-    <Setter Property="RenderTransform">
-        <Setter.Value>
-            <ScaleTransform ScaleX="1" ScaleY="1" />
-        </Setter.Value>
-    </Setter>
-    <Style.Triggers>
-        <Trigger Property="IsMouseOver" Value="True">
-            <Setter Property="Background" Value="#0053B3" />
+    <Page.Resources>
+        <Style x:Key="ShadowButton" TargetType="Button">
+            <Setter Property="Background" Value="#3C4F6D" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="8,4" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Cursor" Value="Hand" />
             <Setter Property="Effect">
                 <Setter.Value>
                     <DropShadowEffect
-                        BlurRadius="10"
-                        Opacity="0.6"
-                        ShadowDepth="3"
-                        Color="#0053B3" />
+                        BlurRadius="5"
+                        Opacity="0.3"
+                        ShadowDepth="2"
+                        Color="#444" />
                 </Setter.Value>
             </Setter>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
             <Setter Property="RenderTransform">
                 <Setter.Value>
-                    <ScaleTransform ScaleX="1.05" ScaleY="1.05" />
+                    <ScaleTransform ScaleX="1" ScaleY="1" />
                 </Setter.Value>
             </Setter>
-        </Trigger>
-        <Trigger Property="IsPressed" Value="True">
-            <Setter Property="RenderTransform">
-                <Setter.Value>
-                    <ScaleTransform ScaleX="0.95" ScaleY="0.95" />
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Effect" Value="{x:Null}" />
-        </Trigger>
-    </Style.Triggers>
-</Style>
-</Page.Resources>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#0053B3" />
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect
+                                BlurRadius="10"
+                                Opacity="0.6"
+                                ShadowDepth="3"
+                                Color="#0053B3" />
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform ScaleX="1.05" ScaleY="1.05" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform ScaleX="0.95" ScaleY="0.95" />
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Effect" Value="{x:Null}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.ColumnSpan="2" HorizontalAlignment="Center" Orientation="Horizontal">
+        <StackPanel
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
             <Border
                 Margin="5"
                 Padding="0"
@@ -87,10 +88,10 @@
                     Width="135"
                     Margin="0,0,10,0"
                     Padding="5"
-                    DisplayMemberPath="DisplayName"
                     materialDesign:HintAssist.Hint="Часовий проміжок"
                     materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                     BorderThickness="0"
+                    DisplayMemberPath="DisplayName"
                     ItemsSource="{Binding AvailableFilters}"
                     SelectedItem="{Binding SelectedFilter}" />
             </Border>
@@ -113,22 +114,46 @@
             </Border>
             <!--<Button
                 Margin="0,0,10,0"
-                
+
                 Content="Експортувати"
                 Style="{StaticResource ShadowButton}" />-->
         </StackPanel>
 
-        <Border Grid.Row="1" Grid.Column="0" BorderBrush="Gray" BorderThickness="1" Margin="5" Padding="5">
+        <Border
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="5"
+            Padding="5"
+            BorderBrush="Gray"
+            BorderThickness="1">
             <ContentControl Content="{Binding ExpensePie, Mode=OneTime}" />
         </Border>
 
-        <Border Grid.Row="1" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="5" Padding="5">
+        <Border
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="5"
+            Padding="5"
+            BorderBrush="Gray"
+            BorderThickness="1">
             <ContentControl Content="{Binding ExpenseBar, Mode=OneTime}" />
         </Border>
-        <Border Grid.Row="2" Grid.Column="0" BorderBrush="Gray" BorderThickness="1" Margin="5" Padding="5">
+        <Border
+            Grid.Row="2"
+            Grid.Column="0"
+            Margin="5"
+            Padding="5"
+            BorderBrush="Gray"
+            BorderThickness="1">
             <ContentControl Content="{Binding IncomePie, Mode=OneTime}" />
         </Border>
-        <Border Grid.Row="2" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="5" Padding="5">
+        <Border
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="5"
+            Padding="5"
+            BorderBrush="Gray"
+            BorderThickness="1">
             <ContentControl Content="{Binding IncomeBar, Mode=OneTime}" />
         </Border>
 
