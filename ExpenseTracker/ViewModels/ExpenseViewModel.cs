@@ -8,6 +8,7 @@ using DocumentFormat.OpenXml.VariantTypes;
 using ExpenseTracker.Data;
 using ExpenseTracker.Models;
 using ExpenseTracker.Views;
+using Microsoft.EntityFrameworkCore;
 
 namespace ExpenseTracker.ViewModels
 {
@@ -254,7 +255,9 @@ namespace ExpenseTracker.ViewModels
                 ClearFields();
                 return;
             }
-            var user = _context.Users.Find(CurrentUser.Id);
+            var user = _context.Users
+                .AsNoTracking()
+                .FirstOrDefault(u => u.Id == CurrentUser.Id);
             if (user == null)
                 return;
             var maxUAH = user.MaxExpenseLimitUAH;
